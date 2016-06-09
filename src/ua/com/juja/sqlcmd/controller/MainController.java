@@ -1,10 +1,16 @@
 package ua.com.juja.sqlcmd.controller;
 
+import com.sun.javaws.exceptions.ExitException;
+import com.sun.javaws.jnl.InformationDesc;
 import ua.com.juja.sqlcmd.controller.commads.Command;
+import ua.com.juja.sqlcmd.controller.commads.Connect;
+import ua.com.juja.sqlcmd.controller.commads.Help;
 import ua.com.juja.sqlcmd.model.DataSet;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
+import ua.com.juja.sqlcmd.utils.InputUtils;
 import ua.com.juja.sqlcmd.view.View;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,6 +26,25 @@ public class MainController {
     public MainController(View view, DatabaseManager manager) {
         this.view = view;
         this.manager = manager;
+        this.commands = new ArrayList<>(Arrays.asList(
+                new Connect(manager, view),
+                new Help(view)
+               /* new CreateDatabase(manager, view),
+                new Databases(manager, view),
+                new DropDatabase(manager, view),
+                new Exit(view),
+                new Help(view),
+                new IsConnected(manager, view),
+                new Clear(manager, view),
+                new CreateEntry(manager, view),
+                new CreateTable(manager, view),
+                new Disconnect(manager, view),
+                new DropTable(manager, view),
+                new Find(manager, view),
+                new Tables(manager, view),
+                new Update(manager, view),
+                new Unsupported(view)*/
+        ));
     }
 
     public void run() {
@@ -27,20 +52,8 @@ public class MainController {
 
         while (true) {
             view.write("Введи команду (или help для помощи):");
-            String command = view.read();
-
-            if (command.equals("list")) {
-                doList();
-            } else if (command.equals("help")) {
-                doHelp();
-            } else if (command.equals("exit")) {
-                view.write("До скорой встречи!");
-                System.exit(0);
-            } else if (command.startsWith("find|")) {
-                doFind(command);
-            } else {
-                view.write("Несуществующая команда: " + command);
-            }
+            InputUtils enter = new InputUtils(view.read());
+            runCommand(enter);
         }
     }
 
@@ -136,5 +149,22 @@ public class MainController {
         }
         view.write("Неудача! по причине: " + message);
         view.write("Повтори попытку.");
+    }
+
+
+    private void runCommand(InputUtils enter) {
+        for (Command command : commands) {
+            try {
+                if (command.is(enter)) {
+                    command.process(enter);
+                    break;
+                }
+            } catch (Exception e) {
+                if (e instanceof ExitException) {
+                    throw e;
+                }
+                printError(e);
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 package ua.com.juja.sqlcmd.controller.commads;
 
 import ua.com.juja.sqlcmd.model.DatabaseManager;
+import ua.com.juja.sqlcmd.utils.InputUtils;
 import ua.com.juja.sqlcmd.view.View;
 
 /**
@@ -23,8 +24,16 @@ public abstract class Command {
         //do nothing
     }
 
+    public boolean is(InputUtils command) {
+        String[] splitFormat = format().split("\\|");
+        String[] parameters = command.getParameters();
+        return parameters[0].equals(splitFormat[0]);
+    }
+
     public abstract String description();
 
     public abstract String format();
+
+    public abstract void process(InputUtils userCommand);
 
 }
