@@ -1,18 +1,21 @@
 package ua.com.juja.sqlcmd.controller;
 
+import ua.com.juja.sqlcmd.controller.commads.Command;
 import ua.com.juja.sqlcmd.model.DataSet;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by indigo on 25.08.2015.
  */
 public class MainController {
 
-    private View view;
     private DatabaseManager manager;
+    private View view;
+    private List<Command> commands;
 
     public MainController(View view, DatabaseManager manager) {
         this.view = view;

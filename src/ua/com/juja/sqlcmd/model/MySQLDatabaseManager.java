@@ -2,11 +2,12 @@ package ua.com.juja.sqlcmd.model;
 
 import java.sql.*;
 import java.util.Arrays;
+import com.mysql.jdbc.Driver;
 
 /**
  * Created by indigo on 21.08.2015.
  */
-public class JDBCDatabaseManager implements DatabaseManager {
+public class MySQLDatabaseManager implements DatabaseManager {
 
     private Connection connection;
 
@@ -16,7 +17,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
             int size = getSize(tableName);
 
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM public." + tableName);
+            ResultSet rs = stmt.executeQuery("SELECT * FROM test." + tableName);
             ResultSetMetaData rsmd = rs.getMetaData();
             DataSet[] result = new DataSet[size];
             int index = 0;
@@ -38,7 +39,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
 
     private int getSize(String tableName) throws SQLException {
         Statement stmt = connection.createStatement();
-        ResultSet rsCount = stmt.executeQuery("SELECT COUNT(*) FROM public." + tableName);
+        ResultSet rsCount = stmt.executeQuery("SELECT COUNT(*) FROM test." + tableName);
         rsCount.next();
         int size = rsCount.getInt(1);
         rsCount.close();
@@ -49,7 +50,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
     public String[] getTableNames() {
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE'");
+            ResultSet rs = stmt.executeQuery("SELECT TABLE_NAME FROM information_schema.tables WHERE table_schema='test' AND table_type='BASE TABLE'");
             String[] tables = new String[100];
             int index = 0;
             while (rs.next()) {
@@ -68,13 +69,13 @@ public class JDBCDatabaseManager implements DatabaseManager {
     @Override
     public void connect(String database, String userName, String password) {
         try {
-            Class.forName("org.postgresql.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             throw new RuntimeException("Please add jdbc jar to project.", e);
         }
         try {
             connection = DriverManager.getConnection(
-                    "jdbc:postgresql://localhost:5432/" + database, userName,
+                    "jdbc:mysql://localhost:3306/" + database, userName,
                     password);
         } catch (SQLException e) {
             connection = null;
@@ -89,7 +90,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
     public void clear(String tableName) {
         try {
             Statement stmt = connection.createStatement();
-            stmt.executeUpdate("DELETE FROM public." + tableName);
+            stmt.executeUpdate("DELETE FROM test." + tableName);
             stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -104,7 +105,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
             String tableNames = getNameFormated(input, "%s,");
             String values = getValuesFormated(input, "'%s',");
 
-            stmt.executeUpdate("INSERT INTO public." + tableName + " (" + tableNames + ")" +
+            stmt.executeUpdate("INSERT INTO test." + tableName + " (" + tableNames + ")" +
                     "VALUES (" + values + ")");
             stmt.close();
         } catch (SQLException e) {
@@ -126,7 +127,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
         try {
             String tableNames = getNameFormated(newValue, "%s = ?,");
 
-            String sql = "UPDATE public." + tableName + " SET " + tableNames + " WHERE id = ?";
+            String sql = "UPDATE test." + tableName + " SET " + tableNames + " WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
 
             int index = 1;
@@ -147,7 +148,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
     public String[] getTableColumns(String tableName) {
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM information_schema.columns WHERE table_schema = 'public' AND table_name = '" + tableName + "'");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM information_schema.columns WHERE table_schema = 'test' AND table_name = '" + tableName + "'");
             String[] tables = new String[100];
             int index = 0;
             while (rs.next()) {

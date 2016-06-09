@@ -18,7 +18,7 @@ public abstract class DatabaseManagerTest {
     @Before
     public void setup() {
         manager = getDatabaseManager();
-        manager.connect("sqlcmd", "postgres", "postgres");
+        manager.connect("test", "root", "162399");
     }
 
     public abstract DatabaseManager getDatabaseManager();
@@ -26,65 +26,65 @@ public abstract class DatabaseManagerTest {
     @Test
     public void testGetAllTableNames() {
         String[] tableNames = manager.getTableNames();
-        assertEquals("[user]", Arrays.toString(tableNames));
+        assertEquals("[users]", Arrays.toString(tableNames));
     }
 
     @Test
     public void testGetTableData() {
         // given
-        manager.clear("user");
+        manager.clear("users");
 
         // when
         DataSet input = new DataSet();
         input.put("name", "Stiven");
-        input.put("password", "pass");
+        input.put("pass", "pass");
         input.put("id", 13);
-        manager.create("user", input);
+        manager.create("users", input);
 
         // then
-        DataSet[] users = manager.getTableData("user");
+        DataSet[] users = manager.getTableData("users");
         assertEquals(1, users.length);
 
         DataSet user = users[0];
-        assertEquals("[name, password, id]", Arrays.toString(user.getNames()));
-        assertEquals("[Stiven, pass, 13]", Arrays.toString(user.getValues()));
+        assertEquals("[name, id, pass]", Arrays.toString(user.getNames()));
+        assertEquals("[Stiven, 13, pass]", Arrays.toString(user.getValues()));
     }
 
     @Test
     public void testUpdateTableData() {
         // given
-        manager.clear("user");
+        manager.clear("users");
 
         DataSet input = new DataSet();
         input.put("name", "Stiven");
-        input.put("password", "pass");
+        input.put("pass", "pass");
         input.put("id", 13);
-        manager.create("user", input);
+        manager.create("users", input);
 
         // when
         DataSet newValue = new DataSet();
-        newValue.put("password", "pass2");
+        newValue.put("pass", "pass2");
         newValue.put("name", "Pup");
-        manager.update("user", 13, newValue);
+        manager.update("users", 13, newValue);
 
         // then
-        DataSet[] users = manager.getTableData("user");
+        DataSet[] users = manager.getTableData("users");
         assertEquals(1, users.length);
 
         DataSet user = users[0];
-        assertEquals("[name, password, id]", Arrays.toString(user.getNames()));
-        assertEquals("[Pup, pass2, 13]", Arrays.toString(user.getValues()));
+        assertEquals("[name, id, pass]", Arrays.toString(user.getNames()));
+        assertEquals("[Pup, 13, pass2]", Arrays.toString(user.getValues()));
     }
 
     @Test
     public void testGetColumnNames() {
         // given
-        manager.clear("user");
+        manager.clear("users");
 
         // when
-        String[] columnNames = manager.getTableColumns("user");
+        String[] columnNames = manager.getTableColumns("users");
 
         // then
-        assertEquals("[name, password, id]", Arrays.toString(columnNames));
+        assertEquals("[name, id, pass]", Arrays.toString(columnNames));
     }
 }
