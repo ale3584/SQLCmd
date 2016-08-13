@@ -93,21 +93,6 @@ public class MainController {
         view.write("--------------------");
     }
 
-    private void doHelp() {
-        view.write("Существующие команды:");
-        view.write("\tlist");
-        view.write("\t\tдля получения списка всех таблиц базы, к которой подключились");
-
-        view.write("\tfind|tableName");
-        view.write("\t\tдля получения содержимого таблицы 'tableName'");
-
-        view.write("\thelp");
-        view.write("\t\tдля вывода этого списка на экран");
-
-        view.write("\texit");
-        view.write("\t\tдля выхода из программы");
-    }
-
     private void doList() {
         String[] tableNames = manager.getTableNames();
 

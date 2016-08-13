@@ -9,7 +9,16 @@ import com.mysql.jdbc.Driver;
  */
 public class MySQLDatabaseManager implements DatabaseManager {
 
+    private static final String ERROR = "It is impossible because: ";
+    private static final String HOST = "localhost";
+    private static final String PORT = "3306";
+
+    private boolean isConnected;
+    private String user;
+    private String password;
+
     private Connection connection;
+    private String DataBaseName;
 
     @Override
     public DataSet[] getTableData(String tableName) {
@@ -68,6 +77,11 @@ public class MySQLDatabaseManager implements DatabaseManager {
 
     @Override
     public void connect(String database, String userName, String password) {
+        if (userName != null && password != null) {
+            this.user = userName;
+            this.password = password;
+        }
+
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -75,8 +89,10 @@ public class MySQLDatabaseManager implements DatabaseManager {
         }
         try {
             connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/" + database, userName,
+                    "jdbc:mysql://"+HOST+":"+PORT+"/" + database, userName,
                     password);
+            DataBaseName = database;
+            isConnected = true;
         } catch (SQLException e) {
             connection = null;
             throw new RuntimeException(
@@ -90,7 +106,7 @@ public class MySQLDatabaseManager implements DatabaseManager {
     public void clear(String tableName) {
         try {
             Statement stmt = connection.createStatement();
-            stmt.executeUpdate("DELETE FROM test." + tableName);
+            stmt.executeUpdate("DELETE FROM " + tableName);
             stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -105,7 +121,7 @@ public class MySQLDatabaseManager implements DatabaseManager {
             String tableNames = getNameFormated(input, "%s,");
             String values = getValuesFormated(input, "'%s',");
 
-            stmt.executeUpdate("INSERT INTO test." + tableName + " (" + tableNames + ")" +
+            stmt.executeUpdate("INSERT INTO " + tableName + " (" + tableNames + ")" +
                     "VALUES (" + values + ")");
             stmt.close();
         } catch (SQLException e) {
@@ -127,7 +143,7 @@ public class MySQLDatabaseManager implements DatabaseManager {
         try {
             String tableNames = getNameFormated(newValue, "%s = ?,");
 
-            String sql = "UPDATE test." + tableName + " SET " + tableNames + " WHERE id = ?";
+            String sql = "UPDATE " + tableName + " SET " + tableNames + " WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
 
             int index = 1;
@@ -148,7 +164,7 @@ public class MySQLDatabaseManager implements DatabaseManager {
     public String[] getTableColumns(String tableName) {
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM information_schema.columns WHERE table_schema = 'test' AND table_name = '" + tableName + "'");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM information_schema.columns WHERE table_schema = "+DataBaseName+" AND table_name = '" + tableName + "'");
             String[] tables = new String[100];
             int index = 0;
             while (rs.next()) {
