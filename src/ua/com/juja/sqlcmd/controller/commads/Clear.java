@@ -14,7 +14,7 @@ public class Clear extends Command {
     }
 
     public Clear() {
-        //do nothing
+
     }
 
     @Override

@@ -13,7 +13,7 @@ public class Connect extends Command {
     }
 
     public Connect() {
-        //do nothing
+
     }
 
     @Override
