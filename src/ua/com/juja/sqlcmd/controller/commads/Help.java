@@ -15,7 +15,8 @@ public class Help extends Command {
         super(view);
         this.commands = new ArrayList<>(Arrays.asList(
                 new Connect(),
-                this
+                this,
+                new Find()
                 /*new CreateDatabase(),
                 new Databases(),
                 new Exit(),
@@ -26,7 +27,6 @@ public class Help extends Command {
                 new Disconnect(),
                 new DropDatabase(),
                 new DropTable(),
-                new Find(),
                 new Tables(),
                 new Update()*/
         ));

@@ -21,7 +21,7 @@ public abstract class Command {
     }
 
     public Command() {
-        //do nothing
+
     }
 
     public boolean is(InputUtils command) {
