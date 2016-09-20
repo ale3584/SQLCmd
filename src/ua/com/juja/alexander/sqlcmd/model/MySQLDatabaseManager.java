@@ -25,7 +25,7 @@ public class MySQLDatabaseManager implements DatabaseManager {
             int size = getSize(tableName);
 
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM test." + tableName);
+            ResultSet rs = stmt.executeQuery("SELECT * FROM "+DataBaseName+"."+tableName);
             ResultSetMetaData rsmd = rs.getMetaData();
             DataSet[] result = new DataSet[size];
             int index = 0;
@@ -47,7 +47,7 @@ public class MySQLDatabaseManager implements DatabaseManager {
 
     private int getSize(String tableName) throws SQLException {
         Statement stmt = connection.createStatement();
-        ResultSet rsCount = stmt.executeQuery("SELECT COUNT(*) FROM test." + tableName);
+        ResultSet rsCount = stmt.executeQuery("SELECT COUNT(*) FROM "+ DataBaseName+"." + tableName);
         rsCount.next();
         int size = rsCount.getInt(1);
         rsCount.close();
@@ -58,7 +58,7 @@ public class MySQLDatabaseManager implements DatabaseManager {
     public String[] getTableNames() {
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT TABLE_NAME FROM information_schema.tables WHERE table_schema='test' AND table_type='BASE TABLE'");
+            ResultSet rs = stmt.executeQuery("SELECT TABLE_NAME FROM information_schema.tables WHERE table_schema='"+DataBaseName+"' AND table_type='BASE TABLE'");
             String[] tables = new String[100];
             int index = 0;
             while (rs.next()) {
