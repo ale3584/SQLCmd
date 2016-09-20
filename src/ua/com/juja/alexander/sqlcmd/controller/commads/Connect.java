@@ -1,11 +1,14 @@
-package ua.com.juja.sqlcmd.controller.commads;
+package ua.com.juja.alexander.sqlcmd.controller.commads;
 
 
-import ua.com.juja.sqlcmd.model.DatabaseManager;
-import ua.com.juja.sqlcmd.model.DatabaseManagerException;
-import ua.com.juja.sqlcmd.utils.InputUtils;
-import ua.com.juja.sqlcmd.view.View;
+import ua.com.juja.alexander.sqlcmd.model.DatabaseManager;
+import ua.com.juja.alexander.sqlcmd.model.DatabaseManagerException;
+import ua.com.juja.alexander.sqlcmd.utils.InputUtils;
+import ua.com.juja.alexander.sqlcmd.view.View;
 
+/**
+ * Created by ALEXANDER on 14.08.2016.
+ */
 public class Connect extends Command {
 
     public Connect(DatabaseManager manager, View view) {

@@ -1,11 +1,10 @@
-package ua.com.juja.sqlcmd.model;
+package ua.com.juja.alexander.sqlcmd.model;
 
 import java.sql.*;
 import java.util.Arrays;
-import com.mysql.jdbc.Driver;
 
 /**
- * Created by indigo on 21.08.2015.
+ * Created by ALEXANDER on 09.06.2016.
  */
 public class MySQLDatabaseManager implements DatabaseManager {
 

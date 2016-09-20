@@ -1,12 +1,15 @@
-package ua.com.juja.sqlcmd.controller.commads;
+package ua.com.juja.alexander.sqlcmd.controller.commads;
 
-import ua.com.juja.sqlcmd.utils.InputUtils;
-import ua.com.juja.sqlcmd.view.View;
+import ua.com.juja.alexander.sqlcmd.view.View;
+import ua.com.juja.alexander.sqlcmd.utils.InputUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Created by ALEXANDER on 14.08.2016.
+ */
 public class Help extends Command {
 
     private List<Command> commands;

@@ -1,9 +1,9 @@
-package ua.com.juja.sqlcmd.view;
+package ua.com.juja.alexander.sqlcmd.view;
 
 import java.util.Scanner;
 
 /**
- * Created by indigo on 25.08.2015.
+ * Created by ALEXANDER on 09.06.2016.
  */
 public class Console implements View {
 

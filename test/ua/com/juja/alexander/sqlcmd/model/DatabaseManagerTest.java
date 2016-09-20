@@ -1,6 +1,5 @@
-package ua.com.juja.sqlcmd.model;
+package ua.com.juja.alexander.sqlcmd.model;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,7 +8,7 @@ import java.util.Arrays;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Created by indigo on 21.08.2015.
+ * Created by ALEXANDER on 09.06.2016.
  */
 public abstract class DatabaseManagerTest {
 

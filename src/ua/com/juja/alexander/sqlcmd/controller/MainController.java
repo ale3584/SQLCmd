@@ -1,21 +1,20 @@
-package ua.com.juja.sqlcmd.controller;
+package ua.com.juja.alexander.sqlcmd.controller;
 
 import com.sun.javaws.exceptions.ExitException;
-import com.sun.javaws.jnl.InformationDesc;
-import ua.com.juja.sqlcmd.controller.commads.Command;
-import ua.com.juja.sqlcmd.controller.commads.Connect;
-import ua.com.juja.sqlcmd.controller.commads.Help;
-import ua.com.juja.sqlcmd.model.DataSet;
-import ua.com.juja.sqlcmd.model.DatabaseManager;
-import ua.com.juja.sqlcmd.utils.InputUtils;
-import ua.com.juja.sqlcmd.view.View;
+import ua.com.juja.alexander.sqlcmd.controller.commads.Command;
+import ua.com.juja.alexander.sqlcmd.controller.commads.Connect;
+import ua.com.juja.alexander.sqlcmd.controller.commads.Help;
+import ua.com.juja.alexander.sqlcmd.model.DataSet;
+import ua.com.juja.alexander.sqlcmd.model.DatabaseManager;
+import ua.com.juja.alexander.sqlcmd.utils.InputUtils;
+import ua.com.juja.alexander.sqlcmd.view.View;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by indigo on 25.08.2015.
+ * Created by ALEXANDER on 09.06.2016.
  */
 public class MainController {
 

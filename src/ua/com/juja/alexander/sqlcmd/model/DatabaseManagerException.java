@@ -1,4 +1,4 @@
-package ua.com.juja.sqlcmd.model;
+package ua.com.juja.alexander.sqlcmd.model;
 
 /**
  * Created by ALEXANDER on 09.06.2016.

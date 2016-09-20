@@ -1,7 +1,7 @@
-package ua.com.juja.sqlcmd.model;
+package ua.com.juja.alexander.sqlcmd.model;
 
 /**
- * Created by indigo on 25.08.2015.
+ * Created by ALEXANDER on 09.06.2016.
  */
 public class MySQLDatabaseManagerTest extends DatabaseManagerTest {
 

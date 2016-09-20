@@ -1,9 +1,9 @@
-package ua.com.juja.sqlcmd.model;
+package ua.com.juja.alexander.sqlcmd.model;
 
 import java.util.Arrays;
 
 /**
- * Created by indigo on 21.08.2015.
+ * Created by ALEXANDER on 09.06.2016.
  */
 public class DataSet {
 
