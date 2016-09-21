@@ -16,16 +16,16 @@ public class InputUtils {
 
     public void pairValidation(String commandFormat) {
         if (command.split("\\|").length % 2 != 0) {
-            throw new IllegalArgumentException("Invalid input, you must enter an even " +
-                    "number of parameters in the following format:" + commandFormat);
+            throw new IllegalArgumentException("Не верный ввод, должно быть введено четное " +
+                    "количество параметров следующего формата:" + commandFormat);
         }
     }
 
     public void parametersValidation(String format) {
         int formatLength = format.split("\\|").length;
         if (formatLength != getLength()) {
-            throw new IllegalArgumentException(String.format("Incorrect number of parameters " +
-                    "separated by '|', expected %s but was: %s", formatLength, getLength()));
+            throw new IllegalArgumentException(String.format("Не верное количество параметров " +
+                    "введенных через '|', ожидаеться %s было введено: %s", formatLength, getLength()));
         }
     }
 

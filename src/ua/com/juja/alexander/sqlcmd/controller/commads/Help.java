@@ -17,14 +17,15 @@ public class Help extends Command {
     public Help(View view) {
         super(view);
         this.commands = new ArrayList<>(Arrays.asList(
-                new Connect(),
+                new Connect(manager, view),
                 this,
-                new Find()
+                new Find(manager, view),
+                new Clear(manager, view)
                 /*new CreateDatabase(),
                 new Databases(),
                 new Exit(),
                 this,
-                new Clear(),
+                ,
                 new CreateEntry(),
                 new CreateTable(),
                 new Disconnect(),

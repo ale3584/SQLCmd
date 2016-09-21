@@ -163,7 +163,7 @@ public class MySQLDatabaseManager implements DatabaseManager {
     public String[] getTableColumns(String tableName) {
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM information_schema.columns WHERE table_schema = '"+DataBaseName+"' AND table_name = '" + tableName + "'");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM information_schema.columns WHERE table_schema = '"+DataBaseName+"' AND table_name = '" + tableName+"'");
             String[] tables = new String[100];
             int index = 0;
             while (rs.next()) {

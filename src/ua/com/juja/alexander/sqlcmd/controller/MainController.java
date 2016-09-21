@@ -1,9 +1,7 @@
 package ua.com.juja.alexander.sqlcmd.controller;
 
 import com.sun.javaws.exceptions.ExitException;
-import ua.com.juja.alexander.sqlcmd.controller.commads.Command;
-import ua.com.juja.alexander.sqlcmd.controller.commads.Connect;
-import ua.com.juja.alexander.sqlcmd.controller.commads.Help;
+import ua.com.juja.alexander.sqlcmd.controller.commads.*;
 import ua.com.juja.alexander.sqlcmd.model.DataSet;
 import ua.com.juja.alexander.sqlcmd.model.DatabaseManager;
 import ua.com.juja.alexander.sqlcmd.utils.InputUtils;
@@ -27,19 +25,18 @@ public class MainController {
         this.manager = manager;
         this.commands = new ArrayList<>(Arrays.asList(
                 new Connect(manager, view),
-                new Help(view)
+                new Help(view),
+                new Find(manager, view),
+                new Clear(manager, view)
                /* new CreateDatabase(manager, view),
                 new Databases(manager, view),
                 new DropDatabase(manager, view),
                 new Exit(view),
-                new Help(view),
                 new IsConnected(manager, view),
-                new Clear(manager, view),
                 new CreateEntry(manager, view),
                 new CreateTable(manager, view),
                 new Disconnect(manager, view),
                 new DropTable(manager, view),
-                new Find(manager, view),
                 new Tables(manager, view),
                 new Update(manager, view),
                 new Unsupported(view)*/
@@ -56,41 +53,6 @@ public class MainController {
         }
     }
 
-    private void doFind(String command) {
-        String[] data = command.split("\\|");
-        String tableName = data[1];
-
-        String[] tableColumns = manager.getTableColumns(tableName);
-        printHeader(tableColumns);
-
-        DataSet[] tableData = manager.getTableData(tableName);
-        printTable(tableData);
-    }
-
-    private void printTable(DataSet[] tableData) {
-        for (DataSet row : tableData) {
-            printRow(row);
-        }
-    }
-
-    private void printRow(DataSet row) {
-        Object[] values = row.getValues();
-        String result = "|";
-        for (Object value : values) {
-            result += value + "|";
-        }
-        view.write(result);
-    }
-
-    private void printHeader(String[] tableColumns) {
-        String result = "|";
-        for (String name : tableColumns) {
-            result += name + "|";
-        }
-        view.write("--------------------");
-        view.write(result);
-        view.write("--------------------");
-    }
 
     private void doList() {
         String[] tableNames = manager.getTableNames();
@@ -126,7 +88,7 @@ public class MainController {
     }
 
     private void printError(Exception e) {
-        String message = /*e.getClass().getSimpleName() + ": " + */ e.getMessage();
+        String message = e.getClass().getSimpleName() + ": " +  e.getMessage();
         Throwable cause = e.getCause();
         if (cause != null) {
             message += " " + /*cause.getClass().getSimpleName() + ": " + */ cause.getMessage();
