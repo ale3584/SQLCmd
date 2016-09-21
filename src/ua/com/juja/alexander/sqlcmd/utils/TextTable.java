@@ -41,6 +41,10 @@ public class TextTable {
         }
     }
 
+    public void addCell(String content){
+            table.addCell(content,this.cs);
+    }
+
     public String getTable() {
         return this.table.render();
     }

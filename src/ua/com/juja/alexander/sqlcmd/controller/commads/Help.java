@@ -20,18 +20,16 @@ public class Help extends Command {
                 new Connect(manager, view),
                 this,
                 new Find(manager, view),
-                new Clear(manager, view)
+                new Clear(manager, view),
+                new Tables(manager, view)
                 /*new CreateDatabase(),
                 new Databases(),
                 new Exit(),
-                this,
-                ,
                 new CreateEntry(),
                 new CreateTable(),
                 new Disconnect(),
                 new DropDatabase(),
                 new DropTable(),
-                new Tables(),
                 new Update()*/
         ));
     }

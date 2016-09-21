@@ -27,7 +27,8 @@ public class MainController {
                 new Connect(manager, view),
                 new Help(view),
                 new Find(manager, view),
-                new Clear(manager, view)
+                new Clear(manager, view),
+                new Tables(manager, view)
                /* new CreateDatabase(manager, view),
                 new Databases(manager, view),
                 new DropDatabase(manager, view),
@@ -53,14 +54,6 @@ public class MainController {
         }
     }
 
-
-    private void doList() {
-        String[] tableNames = manager.getTableNames();
-
-        String message = Arrays.toString(tableNames);
-
-        view.write(message);
-    }
 
     private void connectToDb() {
         view.write("Привет юзер!");
