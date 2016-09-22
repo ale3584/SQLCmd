@@ -31,13 +31,13 @@ public class MainController {
                 new Tables(manager, view),
                 new Exit(view),
                 new Databases(manager, view),
-               /* new CreateDatabase(manager, view),
+                new CreateDatabase(manager, view),
                 new DropDatabase(manager, view),
-                new IsConnected(manager, view),
+                new DropTable(manager, view),
+                /*new IsConnected(manager, view),
                 new CreateEntry(manager, view),
                 new CreateTable(manager, view),
                 new Disconnect(manager, view),
-                new DropTable(manager, view),
                 new Update(manager, view),*/
                 new Unsupported(view)
         ));

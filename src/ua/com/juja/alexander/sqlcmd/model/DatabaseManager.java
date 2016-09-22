@@ -9,6 +9,12 @@ public interface DatabaseManager {
 
     String[] getTableNames();
 
+    void createDatabase(String databaseName);
+
+    void dropDatabase(String databaseName);
+
+    void dropTable(String databaseName);
+
     void connect(String database, String userName, String password);
 
     void clear(String tableName);

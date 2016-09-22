@@ -23,13 +23,14 @@ public class Help extends Command {
                 new Clear(manager, view),
                 new Tables(manager, view),
                 new Exit(view),
-                new Databases(manager,view)
-                /*new CreateDatabase(),
-                new CreateEntry(),
+                new Databases(manager,view),
+                new CreateDatabase(manager,view),
+                new DropDatabase(manager,view),
+                new DropTable(manager,view)
+                /*new CreateEntry(),
                 new CreateTable(),
                 new Disconnect(),
-                new DropDatabase(),
-                new DropTable(),
+
                 new Update()*/
         ));
     }
