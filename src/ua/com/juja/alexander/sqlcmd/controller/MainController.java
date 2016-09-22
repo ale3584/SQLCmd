@@ -30,7 +30,7 @@ public class MainController {
                 new Clear(manager, view),
                 new Tables(manager, view),
                 new Exit(view),
-                new Databases(manager, view)
+                new Databases(manager, view),
                /* new CreateDatabase(manager, view),
                 new DropDatabase(manager, view),
                 new IsConnected(manager, view),
@@ -38,8 +38,8 @@ public class MainController {
                 new CreateTable(manager, view),
                 new Disconnect(manager, view),
                 new DropTable(manager, view),
-                new Update(manager, view),
-                new Unsupported(view)*/
+                new Update(manager, view),*/
+                new Unsupported(view)
         ));
     }
 
