@@ -18,4 +18,7 @@ public interface DatabaseManager {
     void update(String tableName, int id, DataSet newValue);
 
     String[] getTableColumns(String tableName);
+
+    String[] getDataBases();
+
 }

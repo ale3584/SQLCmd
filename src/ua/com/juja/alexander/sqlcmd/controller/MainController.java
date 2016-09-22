@@ -28,17 +28,16 @@ public class MainController {
                 new Help(view),
                 new Find(manager, view),
                 new Clear(manager, view),
-                new Tables(manager, view)
-               /* new CreateDatabase(manager, view),
-                new Databases(manager, view),
-                new DropDatabase(manager, view),
+                new Tables(manager, view),
                 new Exit(view),
+                new Databases(manager, view)
+               /* new CreateDatabase(manager, view),
+                new DropDatabase(manager, view),
                 new IsConnected(manager, view),
                 new CreateEntry(manager, view),
                 new CreateTable(manager, view),
                 new Disconnect(manager, view),
                 new DropTable(manager, view),
-                new Tables(manager, view),
                 new Update(manager, view),
                 new Unsupported(view)*/
         ));

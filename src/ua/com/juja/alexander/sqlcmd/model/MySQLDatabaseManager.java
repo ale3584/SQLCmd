@@ -25,7 +25,7 @@ public class MySQLDatabaseManager implements DatabaseManager {
             int size = getSize(tableName);
 
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM "+DataBaseName+"."+tableName);
+            ResultSet rs = stmt.executeQuery("SELECT * FROM " + DataBaseName + "." + tableName);
             ResultSetMetaData rsmd = rs.getMetaData();
             DataSet[] result = new DataSet[size];
             int index = 0;
@@ -47,7 +47,7 @@ public class MySQLDatabaseManager implements DatabaseManager {
 
     private int getSize(String tableName) throws SQLException {
         Statement stmt = connection.createStatement();
-        ResultSet rsCount = stmt.executeQuery("SELECT COUNT(*) FROM "+ DataBaseName+"." + tableName);
+        ResultSet rsCount = stmt.executeQuery("SELECT COUNT(*) FROM " + DataBaseName + "." + tableName);
         rsCount.next();
         int size = rsCount.getInt(1);
         rsCount.close();
@@ -58,7 +58,7 @@ public class MySQLDatabaseManager implements DatabaseManager {
     public String[] getTableNames() {
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT TABLE_NAME FROM information_schema.tables WHERE table_schema='"+DataBaseName+"' AND table_type='BASE TABLE'");
+            ResultSet rs = stmt.executeQuery("SELECT TABLE_NAME FROM information_schema.tables WHERE table_schema='" + DataBaseName + "' AND table_type='BASE TABLE'");
             String[] tables = new String[100];
             int index = 0;
             while (rs.next()) {
@@ -88,7 +88,7 @@ public class MySQLDatabaseManager implements DatabaseManager {
         }
         try {
             connection = DriverManager.getConnection(
-                    "jdbc:mysql://"+HOST+":"+PORT+"/" + database, userName,
+                    "jdbc:mysql://" + HOST + ":" + PORT + "/" + database, userName,
                     password);
             DataBaseName = database;
             isConnected = true;
@@ -130,7 +130,7 @@ public class MySQLDatabaseManager implements DatabaseManager {
 
     private String getValuesFormated(DataSet input, String format) {
         String values = "";
-        for (Object value: input.getValues()) {
+        for (Object value : input.getValues()) {
             values += String.format(format, value);
         }
         values = values.substring(0, values.length() - 1);
@@ -163,7 +163,7 @@ public class MySQLDatabaseManager implements DatabaseManager {
     public String[] getTableColumns(String tableName) {
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM information_schema.columns WHERE table_schema = '"+DataBaseName+"' AND table_name = '" + tableName+"'");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM information_schema.columns WHERE table_schema = '" + DataBaseName + "' AND table_name = '" + tableName + "'");
             String[] tables = new String[100];
             int index = 0;
             while (rs.next()) {
@@ -186,5 +186,24 @@ public class MySQLDatabaseManager implements DatabaseManager {
         }
         string = string.substring(0, string.length() - 1);
         return string;
+    }
+
+    public String[] getDataBases(){
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT SCHEMATA.SCHEMA_NAME as DBName FROM information_schema.SCHEMATA AS SCHEMATA WHERE SCHEMATA.SCHEMA_NAME NOT IN ('information_schema','mysql','performance_schema') GROUP BY SCHEMATA.SCHEMA_NAME");
+            String[] dataBases = new String[100];
+            int index = 0;
+            while (rs.next()) {
+                dataBases[index++] = rs.getString("DBName");
+            }
+            dataBases = Arrays.copyOf(dataBases, index, String[].class);
+            rs.close();
+            stmt.close();
+            return dataBases;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new String[0];
+        }
     }
 }

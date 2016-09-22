@@ -21,10 +21,10 @@ public class Help extends Command {
                 this,
                 new Find(manager, view),
                 new Clear(manager, view),
-                new Tables(manager, view)
+                new Tables(manager, view),
+                new Exit(view),
+                new Databases(manager,view)
                 /*new CreateDatabase(),
-                new Databases(),
-                new Exit(),
                 new CreateEntry(),
                 new CreateTable(),
                 new Disconnect(),
