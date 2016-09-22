@@ -11,6 +11,12 @@ public class Unsupported extends Command {
     }
 
     @Override
+    public boolean is(InputUtils userCommand) {
+        return true;
+    }
+
+
+    @Override
     public String description() {
         return null;
     }
