@@ -17,6 +17,10 @@ public class Tables extends Command {
         super(manager,view);
     }
 
+    public Tables() {
+
+    }
+
     @Override
     public String description() {
         return "Выводит список таблиц базы данных.";

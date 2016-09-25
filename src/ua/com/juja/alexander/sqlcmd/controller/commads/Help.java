@@ -19,19 +19,18 @@ public class Help extends Command {
         this.commands = new ArrayList<>(Arrays.asList(
                 new Connect(manager, view),
                 this,
-                new Find(manager, view),
-                new Clear(manager, view),
-                new Tables(manager, view),
-                new Exit(view),
-                new Databases(manager,view),
-                new CreateDatabase(manager,view),
-                new DropDatabase(manager,view),
-                new DropTable(manager,view)
+                new Find(),
+                new Clear(),
+                new Tables(),
+                new Exit(),
+                new Databases(),
+                new CreateDatabase(),
+                new DropDatabase(),
+                new DropTable(),
+                new Update()
                 /*new CreateEntry(),
                 new CreateTable(),
-                new Disconnect(),
-
-                new Update()*/
+                new Disconnect(),*/
         ));
     }
 

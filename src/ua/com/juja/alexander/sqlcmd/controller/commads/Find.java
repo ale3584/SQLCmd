@@ -11,6 +11,10 @@ public class Find extends Command {
         super(manager, view);
     }
 
+    public Find() {
+
+    }
+
     @Override
     public String description() {
         return "поиск данных в таблице";

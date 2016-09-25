@@ -13,6 +13,10 @@ public class Databases extends Command {
         super(manager, view);
     }
 
+    public Databases() {
+
+    }
+
     @Override
     public String description() {
         return "Выводит список баз данных.";

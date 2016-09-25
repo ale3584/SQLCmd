@@ -2,6 +2,7 @@ package ua.com.juja.alexander.sqlcmd.model;
 
 import java.sql.*;
 import java.util.Arrays;
+import java.util.Map;
 
 /**
  * Created by ALEXANDER on 09.06.2016.
@@ -204,6 +205,15 @@ public class MySQLDatabaseManager implements DatabaseManager {
             e.printStackTrace();
             return new String[0];
         }
+    }
+
+    private String getNameFormated(Map<String, Object> newValue, String format) {
+        String string = "";
+        for (String name : newValue.keySet()) {
+            string += String.format(format, name);
+        }
+        string = string.substring(0, string.length() - 1);
+        return string;
     }
 
     private String getNameFormated(DataSet newValue, String format) {

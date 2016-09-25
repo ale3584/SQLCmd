@@ -1,5 +1,7 @@
 package ua.com.juja.alexander.sqlcmd.model;
 
+import java.util.Map;
+
 /**
  * Created by ALEXANDER on 09.06.2016.
  */

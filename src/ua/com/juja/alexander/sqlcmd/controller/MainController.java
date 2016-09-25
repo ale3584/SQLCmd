@@ -37,8 +37,8 @@ public class MainController {
                 /*new IsConnected(manager, view),
                 new CreateEntry(manager, view),
                 new CreateTable(manager, view),
-                new Disconnect(manager, view),
-                new Update(manager, view),*/
+                new Disconnect(manager, view),*/
+                new Update(manager, view),
                 new Unsupported(view)
         ));
     }
