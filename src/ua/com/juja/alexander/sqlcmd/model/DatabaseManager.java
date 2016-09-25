@@ -30,4 +30,8 @@ public interface DatabaseManager {
     String[] getDataBases();
 
     void disconnectFromDatabase();
+
+    void insert(String parameter, DataSet tableData);
+
+    void createTable(String parameter);
 }

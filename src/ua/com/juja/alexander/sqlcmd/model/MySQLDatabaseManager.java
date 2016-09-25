@@ -250,5 +250,35 @@ public class MySQLDatabaseManager implements DatabaseManager {
         connect("", user, password);
     }
 
+    @Override
+    public void insert(String tableName, DataSet input) {
+        String rowNames = getNameFormated(input, "\"%s\",");
+        String values = getValuesFormated(input, "'%s',");
+        String sql = createString("INSERT INTO ", tableName, " (", rowNames, ") ", "VALUES (", values, ")");
+
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            throw new DatabaseManagerException(ERROR, e);
+        }
+    }
+
+    @Override
+    public void createTable(String parameter) {
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + parameter);
+        } catch (SQLException e) {
+            throw new DatabaseManagerException(ERROR, e);
+        }
+    }
+
+    private String createString(String... args) {
+        StringBuilder result = new StringBuilder();
+        for (String arg: args) {
+            result.append(arg);
+        }
+        return result.toString();
+    }
+
 
 }
