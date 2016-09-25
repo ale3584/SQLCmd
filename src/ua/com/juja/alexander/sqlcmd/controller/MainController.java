@@ -36,8 +36,8 @@ public class MainController {
                 new DropTable(manager, view),
                 /*new IsConnected(manager, view),
                 new CreateEntry(manager, view),
-                new CreateTable(manager, view),
-                new Disconnect(manager, view),*/
+                new CreateTable(manager, view)*/
+                new Disconnect(manager, view),
                 new Update(manager, view),
                 new Unsupported(view)
         ));

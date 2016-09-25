@@ -244,5 +244,11 @@ public class MySQLDatabaseManager implements DatabaseManager {
         }
     }
 
+    @Override
+    public void disconnectFromDatabase() {
+        isConnected = false;
+        connect("", user, password);
+    }
+
 
 }

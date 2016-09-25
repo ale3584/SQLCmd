@@ -27,10 +27,10 @@ public class Help extends Command {
                 new CreateDatabase(),
                 new DropDatabase(),
                 new DropTable(),
-                new Update()
+                new Update(),
                 /*new CreateEntry(),
-                new CreateTable(),
-                new Disconnect(),*/
+                new CreateTable(),*/
+                new Disconnect()
         ));
     }
 

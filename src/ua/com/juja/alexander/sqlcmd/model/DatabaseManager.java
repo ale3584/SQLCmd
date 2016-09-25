@@ -29,4 +29,5 @@ public interface DatabaseManager {
 
     String[] getDataBases();
 
+    void disconnectFromDatabase();
 }
