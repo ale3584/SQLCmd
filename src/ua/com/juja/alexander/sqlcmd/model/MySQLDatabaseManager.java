@@ -144,7 +144,7 @@ public class MySQLDatabaseManager implements DatabaseManager {
 
     private String getValuesFormated(Map<String,Object> input, String format) {
         String values = "";
-        for (Object value : input.keySet()) {
+        for (Object value : input.values()) {
             values += String.format(format, value);
         }
         values = values.substring(0, values.length() - 1);
@@ -160,7 +160,7 @@ public class MySQLDatabaseManager implements DatabaseManager {
             PreparedStatement ps = connection.prepareStatement(sql);
 
             int index = 1;
-            for (Object value : newValue.keySet()) {
+            for (Object value : newValue.values()) {
                 ps.setObject(index, value);
                 index++;
             }

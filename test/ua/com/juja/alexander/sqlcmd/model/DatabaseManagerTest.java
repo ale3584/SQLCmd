@@ -3,9 +3,7 @@ package ua.com.juja.alexander.sqlcmd.model;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 
@@ -26,8 +24,8 @@ public abstract class DatabaseManagerTest {
 
     @Test
     public void testGetAllTableNames() {
-        String[] tableNames = manager.getTableNames();
-        assertEquals("[users]", Arrays.toString(tableNames));
+        Map<String,Object> tableNames = manager.getTableNames();
+        assertEquals("[users]", tableNames.values().toString());
     }
 
     @Test
@@ -36,19 +34,17 @@ public abstract class DatabaseManagerTest {
         manager.clear("users");
 
         // when
-        DataSet input = new DataSet();
+        Map<String,Object> input = new LinkedHashMap<String,Object>();
         input.put("name", "Stiven");
         input.put("pass", "pass");
         input.put("id", 13);
         manager.create("users", input);
 
         // then
-        DataSet[] users = manager.getTableData("users");
-        assertEquals(1, users.length);
-
-        DataSet user = users[0];
-        assertEquals("[name, id, pass]", Arrays.toString(user.getNames()));
-        assertEquals("[Stiven, 13, pass]", Arrays.toString(user.getValues()));
+        Map<String,Object> users = manager.getTableData("users");
+        assertEquals(3, users.size());
+        assertEquals("[name, id, pass]", users.keySet().toString());
+        assertEquals("[Stiven, 13, pass]", users.values().toString());
     }
 
     @Test
@@ -56,25 +52,23 @@ public abstract class DatabaseManagerTest {
         // given
         manager.clear("users");
 
-        DataSet input = new DataSet();
+        Map<String,Object> input = new LinkedHashMap<String, Object>();
         input.put("name", "Stiven");
         input.put("pass", "pass");
         input.put("id", 13);
         manager.create("users", input);
 
         // when
-        DataSet newValue = new DataSet();
+        Map<String,Object> newValue = new LinkedHashMap<String,Object>();
         newValue.put("pass", "pass2");
         newValue.put("name", "Pup");
         manager.update("users", 13, newValue);
 
         // then
-        DataSet[] users = manager.getTableData("users");
-        assertEquals(1, users.length);
-
-        DataSet user = users[0];
-        assertEquals("[name, id, pass]", Arrays.toString(user.getNames()));
-        assertEquals("[Pup, 13, pass2]", Arrays.toString(user.getValues()));
+        Map<String,Object> users = manager.getTableData("users");
+        assertEquals(3, users.size());
+        assertEquals("[name, id, pass]", users.keySet().toString());
+        assertEquals("[Pup, 13, pass2]", users.values().toString());
     }
 
     @Test
@@ -83,9 +77,9 @@ public abstract class DatabaseManagerTest {
         manager.clear("users");
 
         // when
-        String[] columnNames = manager.getTableColumns("users");
+        Map<String,Object> columnNames = manager.getTableColumns("users");
 
         // then
-        assertEquals("[name, id, pass]", Arrays.toString(columnNames));
+        assertEquals("[name, id, pass]", columnNames.keySet().toString());
     }
 }
