@@ -7,9 +7,9 @@ import java.util.Map;
  */
 public interface DatabaseManager {
 
-    DataSet[] getTableData(String tableName);
+    Map<String,Object> getTableData(String tableName);
 
-    String[] getTableNames();
+    Map<String,Object> getTableNames();
 
     void createDatabase(String databaseName);
 
@@ -21,17 +21,17 @@ public interface DatabaseManager {
 
     void clear(String tableName);
 
-    void create(String tableName, DataSet input);
+    void create(String tableName, Map<String,Object> input);
 
-    void update(String tableName, int id, DataSet newValue);
+    void update(String tableName, int id, Map<String,Object> newValue);
 
-    String[] getTableColumns(String tableName);
+    Map<String,Object> getTableColumns(String tableName);
 
-    String[] getDataBases();
+    Map<String,Object> getDataBases();
 
     void disconnectFromDatabase();
 
-    void insert(String parameter, DataSet tableData);
+    void insert(String parameter, Map<String,Object> tableData);
 
     void createTable(String parameter);
 }

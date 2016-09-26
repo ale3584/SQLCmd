@@ -30,7 +30,6 @@ public class Databases extends Command {
     @Override
     public void process(InputUtils userCommand) {
         userCommand.parametersValidation(format());
-
         TextTable textTable = new TextTable(1);
         textTable.addCell("Имя базы данных");
         textTable.addCells(manager.getDataBases());

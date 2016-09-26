@@ -32,7 +32,6 @@ public class CreateTable extends Command{
     public void process(InputUtils userCommand) {
         userCommand.parametersValidation(format());
         String[] parameters = userCommand.getParameters();
-
         manager.createTable(parameters[1]);
         view.write("Таблица успешно создана.");
     }

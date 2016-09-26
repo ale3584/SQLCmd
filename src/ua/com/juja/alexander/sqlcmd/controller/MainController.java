@@ -83,7 +83,7 @@ public class MainController {
         String message = e.getClass().getSimpleName() + ": " +  e.getMessage();
         Throwable cause = e.getCause();
         if (cause != null) {
-            message += " " + /*cause.getClass().getSimpleName() + ": " + */ cause.getMessage();
+            message += " " + cause.getMessage();
         }
         view.write("Неудача! по причине: " + message);
         view.write("Повтори попытку.");

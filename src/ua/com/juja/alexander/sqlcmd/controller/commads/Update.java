@@ -41,7 +41,7 @@ public class Update extends Command {
         data.pairValidation("column1|value1|column2|value2|...|columnN|valueN");
         String[] dataParameters = data.getParameters();
 
-        DataSet newTableData = parseData(dataParameters);
+        Map<String,Object> newTableData = parseData(dataParameters);
         int id = Integer.parseInt(parameters[2]);
         manager.update(parameters[1], id, newTableData);
 
@@ -49,8 +49,8 @@ public class Update extends Command {
     }
 
 
-    private DataSet parseData(String[] splitData) {
-        DataSet result = new DataSet();
+    private Map<String,Object> parseData(String[] splitData) {
+        Map<String,Object> result = new LinkedHashMap<String,Object>();
         for (int index = 0; index < (splitData.length / 2); index++) {
             String column = splitData[index * 2];
             String value = splitData[index * 2 + 1];

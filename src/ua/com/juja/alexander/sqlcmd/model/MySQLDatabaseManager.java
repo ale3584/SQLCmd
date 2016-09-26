@@ -2,7 +2,9 @@ package ua.com.juja.alexander.sqlcmd.model;
 
 import java.sql.*;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created by ALEXANDER on 09.06.2016.
@@ -21,20 +23,15 @@ public class MySQLDatabaseManager implements DatabaseManager {
     private String DataBaseName;
 
     @Override
-    public DataSet[] getTableData(String tableName) {
+    public Map<String,Object> getTableData(String tableName) {
+        Map<String,Object> result = new LinkedHashMap<String, Object>();
         try {
-            int size = getSize(tableName);
-
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM " + DataBaseName + "." + tableName);
             ResultSetMetaData rsmd = rs.getMetaData();
-            DataSet[] result = new DataSet[size];
-            int index = 0;
             while (rs.next()) {
-                DataSet dataSet = new DataSet();
-                result[index++] = dataSet;
                 for (int i = 1; i <= rsmd.getColumnCount(); i++) {
-                    dataSet.put(rsmd.getColumnName(i), rs.getObject(i));
+                    result.put(rsmd.getColumnName(i), rs.getObject(i));
                 }
             }
             rs.close();
@@ -42,36 +39,25 @@ public class MySQLDatabaseManager implements DatabaseManager {
             return result;
         } catch (SQLException e) {
             e.printStackTrace();
-            return new DataSet[0];
+            return result;
         }
     }
 
-    private int getSize(String tableName) throws SQLException {
-        Statement stmt = connection.createStatement();
-        ResultSet rsCount = stmt.executeQuery("SELECT COUNT(*) FROM " + DataBaseName + "." + tableName);
-        rsCount.next();
-        int size = rsCount.getInt(1);
-        rsCount.close();
-        return size;
-    }
-
     @Override
-    public String[] getTableNames() {
+    public Map<String,Object> getTableNames() {
+        Map<String,Object> tables = new LinkedHashMap<String,Object>();
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT TABLE_NAME FROM information_schema.tables WHERE table_schema='" + DataBaseName + "' AND table_type='BASE TABLE'");
-            String[] tables = new String[100];
-            int index = 0;
             while (rs.next()) {
-                tables[index++] = rs.getString("table_name");
+                tables.put(rs.getString("table_name"),rs.getString("table_name"));
             }
-            tables = Arrays.copyOf(tables, index, String[].class);
             rs.close();
             stmt.close();
             return tables;
         } catch (SQLException e) {
             e.printStackTrace();
-            return new String[0];
+            return tables;
         }
     }
 
@@ -141,7 +127,7 @@ public class MySQLDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public void create(String tableName, DataSet input) {
+    public void create(String tableName, Map<String,Object> input) {
         try {
             Statement stmt = connection.createStatement();
 
@@ -156,9 +142,9 @@ public class MySQLDatabaseManager implements DatabaseManager {
         }
     }
 
-    private String getValuesFormated(DataSet input, String format) {
+    private String getValuesFormated(Map<String,Object> input, String format) {
         String values = "";
-        for (Object value : input.getValues()) {
+        for (Object value : input.keySet()) {
             values += String.format(format, value);
         }
         values = values.substring(0, values.length() - 1);
@@ -166,7 +152,7 @@ public class MySQLDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public void update(String tableName, int id, DataSet newValue) {
+    public void update(String tableName, int id, Map<String,Object> newValue) {
         try {
             String tableNames = getNameFormated(newValue, "%s = ?,");
 
@@ -174,7 +160,7 @@ public class MySQLDatabaseManager implements DatabaseManager {
             PreparedStatement ps = connection.prepareStatement(sql);
 
             int index = 1;
-            for (Object value : newValue.getValues()) {
+            for (Object value : newValue.keySet()) {
                 ps.setObject(index, value);
                 index++;
             }
@@ -188,22 +174,20 @@ public class MySQLDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public String[] getTableColumns(String tableName) {
+    public Map<String,Object> getTableColumns(String tableName) {
+        Map<String,Object>  tables = new LinkedHashMap<String,Object>();
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM information_schema.columns WHERE table_schema = '" + DataBaseName + "' AND table_name = '" + tableName + "'");
-            String[] tables = new String[100];
-            int index = 0;
             while (rs.next()) {
-                tables[index++] = rs.getString("column_name");
+                tables.put(rs.getString("column_name"),rs.getString("column_name"));
             }
-            tables = Arrays.copyOf(tables, index, String[].class);
             rs.close();
             stmt.close();
             return tables;
         } catch (SQLException e) {
             e.printStackTrace();
-            return new String[0];
+            return tables;
         }
     }
 
@@ -216,31 +200,20 @@ public class MySQLDatabaseManager implements DatabaseManager {
         return string;
     }
 
-    private String getNameFormated(DataSet newValue, String format) {
-        String string = "";
-        for (String name : newValue.getNames()) {
-            string += String.format(format, name);
-        }
-        string = string.substring(0, string.length() - 1);
-        return string;
-    }
-
-    public String[] getDataBases(){
+    public Map<String,Object> getDataBases(){
+        Map<String,Object> dataBases = new LinkedHashMap<String, Object>();
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT SCHEMATA.SCHEMA_NAME as DBName FROM information_schema.SCHEMATA AS SCHEMATA WHERE SCHEMATA.SCHEMA_NAME NOT IN ('information_schema','mysql','performance_schema') GROUP BY SCHEMATA.SCHEMA_NAME");
-            String[] dataBases = new String[100];
-            int index = 0;
             while (rs.next()) {
-                dataBases[index++] = rs.getString("DBName");
+                dataBases.put(rs.getString("DBName"),rs.getString("DBName"));
             }
-            dataBases = Arrays.copyOf(dataBases, index, String[].class);
             rs.close();
             stmt.close();
             return dataBases;
         } catch (SQLException e) {
             e.printStackTrace();
-            return new String[0];
+            return dataBases;
         }
     }
 
@@ -251,7 +224,7 @@ public class MySQLDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public void insert(String tableName, DataSet input) {
+    public void insert(String tableName, Map<String,Object> input) {
         String rowNames = getNameFormated(input, "\"%s\",");
         String values = getValuesFormated(input, "'%s',");
         String sql = createString("INSERT INTO ", tableName, " (", rowNames, ") ", "VALUES (", values, ")");

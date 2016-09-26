@@ -7,6 +7,7 @@ import ua.com.juja.alexander.sqlcmd.utils.TextTable;
 import ua.com.juja.alexander.sqlcmd.view.View;
 
 import java.util.Arrays;
+import java.util.Map;
 
 /**
  * Created by ALEXANDER on 21.09.2016.
@@ -34,7 +35,7 @@ public class Tables extends Command {
     @Override
     public void process(InputUtils userCommand) {
         userCommand.parametersValidation(format());
-        String[] tableNames = manager.getTableNames();
+        Map<String,Object> tableNames = manager.getTableNames();
         TextTable textTable = new TextTable(1);
         textTable.addCell("Имя таблицы");
         textTable.addCells(tableNames);

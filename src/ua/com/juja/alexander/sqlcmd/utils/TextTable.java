@@ -6,6 +6,8 @@ import org.nocrala.tools.texttablefmt.ShownBorders;
 import org.nocrala.tools.texttablefmt.Table;
 import ua.com.juja.alexander.sqlcmd.model.DataSet;
 
+import java.util.Map;
+
 import static org.nocrala.tools.texttablefmt.CellStyle.*;
 
 /**
@@ -27,12 +29,10 @@ public class TextTable {
                  NullStyle.emptyString);
     }
 
-    public void addCells(DataSet[] content){
-        for (DataSet contentElement:content) {
-            for (Object value: contentElement.getValues()) {
-                table.addCell(value.toString(),this.cs);
+    public void addCells(Map<String,Object> content){
+            for (Object value : content.keySet()) {
+                table.addCell(value.toString(), this.cs);
             }
-        }
     }
 
     public void addCells(String[] content){

@@ -30,7 +30,6 @@ public class CreateDatabase extends Command{
     public void process(InputUtils userCommand) {
         userCommand.parametersValidation(format());
         String[] parameters = userCommand.getParameters();
-
         manager.createDatabase(parameters[1]);
         view.write("База данных '" + parameters[1] + "' успешно  создана.");
     }
