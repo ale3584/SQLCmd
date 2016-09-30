@@ -1,12 +1,10 @@
 package ua.com.juja.alexander.sqlcmd.controller.commads;
 
-import ua.com.juja.alexander.sqlcmd.model.DataSet;
 import ua.com.juja.alexander.sqlcmd.model.DatabaseManager;
 import ua.com.juja.alexander.sqlcmd.utils.InputUtils;
 import ua.com.juja.alexander.sqlcmd.utils.TextTable;
 import ua.com.juja.alexander.sqlcmd.view.View;
 
-import java.util.Arrays;
 import java.util.Map;
 
 /**

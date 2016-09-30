@@ -1,6 +1,5 @@
 package ua.com.juja.alexander.sqlcmd.controller.commads;
 
-import ua.com.juja.alexander.sqlcmd.model.DataSet;
 import ua.com.juja.alexander.sqlcmd.model.DatabaseManager;
 import ua.com.juja.alexander.sqlcmd.utils.*;
 import ua.com.juja.alexander.sqlcmd.view.View;

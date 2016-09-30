@@ -4,7 +4,6 @@ import org.nocrala.tools.texttablefmt.BorderStyle;
 import org.nocrala.tools.texttablefmt.CellStyle;
 import org.nocrala.tools.texttablefmt.ShownBorders;
 import org.nocrala.tools.texttablefmt.Table;
-import ua.com.juja.alexander.sqlcmd.model.DataSet;
 
 import java.util.Map;
 

@@ -1,10 +1,8 @@
 package ua.com.juja.alexander.sqlcmd.model;
 
 import java.sql.*;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Created by ALEXANDER on 09.06.2016.

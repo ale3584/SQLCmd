@@ -1,13 +1,11 @@
 package ua.com.juja.alexander.sqlcmd.controller.commads;
 
-import ua.com.juja.alexander.sqlcmd.model.DataSet;
 import ua.com.juja.alexander.sqlcmd.model.DatabaseManager;
 import ua.com.juja.alexander.sqlcmd.utils.InputUtils;
 import ua.com.juja.alexander.sqlcmd.view.View;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Created by ALEXANDER on 25.09.2016.
