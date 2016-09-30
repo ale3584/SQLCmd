@@ -245,6 +245,11 @@ public class MySQLDatabaseManager implements DatabaseManager {
         }
     }
 
+    @Override
+    public boolean isConnected() {
+        return isConnected;
+    }
+
     private String createString(String... args) {
         StringBuilder result = new StringBuilder();
         for (String arg: args) {
@@ -252,6 +257,7 @@ public class MySQLDatabaseManager implements DatabaseManager {
         }
         return result.toString();
     }
+
 
 
 }

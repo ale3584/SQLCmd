@@ -34,4 +34,6 @@ public interface DatabaseManager {
     void insert(String parameter, Map<String,Object> tableData);
 
     void createTable(String parameter);
+
+    boolean isConnected();
 }

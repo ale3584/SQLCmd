@@ -15,6 +15,12 @@ public class IsConnected extends Command {
     public IsConnected() {
     }
 
+
+    @Override
+    public boolean is(InputUtils command) {
+        return !manager.isConnected();
+    }
+
     @Override
     public String description() {
         return null;
@@ -27,6 +33,6 @@ public class IsConnected extends Command {
 
     @Override
     public void process(InputUtils userCommand) {
-
+        view.write("Вы не подключены к базе данных, пожалуйста подключитесь.");
     }
 }
