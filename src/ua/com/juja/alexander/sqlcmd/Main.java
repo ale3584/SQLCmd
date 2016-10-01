@@ -15,7 +15,7 @@ import java.sql.*;
  * Created by ALEXANDER on 09.06.2016.
  */
 public class Main {
-    public static void main(String[] argv) throws ClassNotFoundException, SQLException {
+    public static void main(String[] strings) throws ClassNotFoundException, SQLException {
         BasicConfigurator.configure();
         Logger.getRootLogger().setLevel(Level.OFF); //Disable log4j from text table formatter
 

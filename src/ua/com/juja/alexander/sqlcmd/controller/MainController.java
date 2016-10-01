@@ -1,11 +1,10 @@
 package ua.com.juja.alexander.sqlcmd.controller;
 
-import com.sun.javaws.exceptions.ExitException;
 import ua.com.juja.alexander.sqlcmd.controller.commads.*;
-import ua.com.juja.alexander.sqlcmd.model.DataSet;
+import ua.com.juja.alexander.sqlcmd.controller.commads.utils.InputUtils;
 import ua.com.juja.alexander.sqlcmd.model.DatabaseManager;
-import ua.com.juja.alexander.sqlcmd.utils.InputUtils;
 import ua.com.juja.alexander.sqlcmd.view.View;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,6 +24,7 @@ public class MainController {
         this.manager = manager;
         this.commands = new ArrayList<>(Arrays.asList(
                 new Help(view),
+                new Exit(view),
                 new Connect(manager, view),
                 new Find(manager, view),
                 new Clear(manager, view),
@@ -38,45 +38,27 @@ public class MainController {
                 new CreateTable(manager, view),
                 new Disconnect(manager, view),
                 new Update(manager, view),
-                new Exit(view),
                 new Unsupported(view)
         ));
     }
 
     public void run() {
-        connectToDb();
 
-        while (true) {
-            view.write("Введи команду (или help для помощи):");
-            InputUtils enter = new InputUtils(view.read());
-            runCommand(enter);
+        try {
+            doWork();
+        } catch (ExitException e) {
         }
     }
 
-
-    private void connectToDb() {
+    private void doWork() {
         view.write("Привет юзер!");
-        view.write("Введи, пожалуйста имя базы данных, имя пользователя и пароль в формате: database|userName|password");
+        view.write("Введи, пожалуйста имя базы данных, имя пользователя и пароль в формате: connect|database|userName|password");
 
         while (true) {
-            try {
-                String string = view.read();
-                String[] data = string.split("\\|");
-                if (data.length != 3) {
-                    throw new IllegalArgumentException("Неверно количество параметров разделенных знаком '|', ожидается 3, но есть: " + data.length);
-                }
-                String databaseName = data[0];
-                String userName = data[1];
-                String password = data[2];
-
-                manager.connect(databaseName, userName, password);
-                break;
-            } catch (Exception e) {
-                printError(e);
-            }
+            InputUtils input = new InputUtils(view.read());
+            runCommand(input);
+            view.write("Введи команду (или help для помощи):");
         }
-
-        view.write("Успех!");
     }
 
     private void printError(Exception e) {
@@ -88,7 +70,6 @@ public class MainController {
         view.write("Неудача! по причине: " + message);
         view.write("Повтори попытку.");
     }
-
 
     private void runCommand(InputUtils enter) {
         for (Command command : commands) {
@@ -102,6 +83,7 @@ public class MainController {
                     throw e;
                 }
                 printError(e);
+                break;
             }
         }
     }

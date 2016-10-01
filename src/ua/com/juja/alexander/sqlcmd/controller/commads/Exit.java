@@ -1,7 +1,8 @@
 package ua.com.juja.alexander.sqlcmd.controller.commads;
 
 
-import ua.com.juja.alexander.sqlcmd.utils.InputUtils;
+
+import ua.com.juja.alexander.sqlcmd.controller.commads.utils.InputUtils;
 import ua.com.juja.alexander.sqlcmd.view.View;
 
 /**

@@ -1,7 +1,7 @@
 package ua.com.juja.alexander.sqlcmd.controller.commads;
 
 import ua.com.juja.alexander.sqlcmd.view.View;
-import ua.com.juja.alexander.sqlcmd.utils.InputUtils;
+import ua.com.juja.alexander.sqlcmd.controller.commads.utils.InputUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,8 +17,9 @@ public class Help extends Command {
     public Help(View view) {
         super(view);
         this.commands = new ArrayList<>(Arrays.asList(
-                this,
                 new Connect(),
+                this,
+                new Exit(),
                 new Find(),
                 new Clear(),
                 new Databases(),
@@ -29,8 +30,7 @@ public class Help extends Command {
                 new DropTable(),
                 new CreateEntry(),
                 new Update(),
-                new Disconnect(),
-                new Exit()
+                new Disconnect()
         ));
     }
 

@@ -1,7 +1,7 @@
 package ua.com.juja.alexander.sqlcmd.controller.commads;
 
+import ua.com.juja.alexander.sqlcmd.controller.commads.utils.*;
 import ua.com.juja.alexander.sqlcmd.model.DatabaseManager;
-import ua.com.juja.alexander.sqlcmd.utils.*;
 import ua.com.juja.alexander.sqlcmd.view.View;
 
 import java.util.Map;

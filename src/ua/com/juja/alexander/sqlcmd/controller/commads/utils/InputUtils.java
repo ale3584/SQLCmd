@@ -1,4 +1,4 @@
-package ua.com.juja.alexander.sqlcmd.utils;
+package ua.com.juja.alexander.sqlcmd.controller.commads.utils;
 
 /**
  * Created by ALEXANDER on 09.06.2016.

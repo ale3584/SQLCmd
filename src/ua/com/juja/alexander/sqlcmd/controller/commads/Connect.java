@@ -3,7 +3,7 @@ package ua.com.juja.alexander.sqlcmd.controller.commads;
 
 import ua.com.juja.alexander.sqlcmd.model.DatabaseManager;
 import ua.com.juja.alexander.sqlcmd.model.DatabaseManagerException;
-import ua.com.juja.alexander.sqlcmd.utils.InputUtils;
+import ua.com.juja.alexander.sqlcmd.controller.commads.utils.InputUtils;
 import ua.com.juja.alexander.sqlcmd.view.View;
 
 /**
@@ -26,7 +26,7 @@ public class Connect extends Command {
 
     @Override
     public String format() {
-        return "connect|database";
+        return "connect|database|userName|password";
     }
 
     @Override
@@ -34,7 +34,7 @@ public class Connect extends Command {
         userCommand.parametersValidation(format());
         String[] parameters = userCommand.getParameters();
         try {
-            manager.connect(parameters[1], null, null);
+            manager.connect(parameters[1], parameters[2], parameters[3]);
         } catch (DatabaseManagerException e) {
             manager.connect("", null, null);
             throw e;

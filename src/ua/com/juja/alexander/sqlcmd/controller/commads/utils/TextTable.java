@@ -1,4 +1,4 @@
-package ua.com.juja.alexander.sqlcmd.utils;
+package ua.com.juja.alexander.sqlcmd.controller.commads.utils;
 
 import org.nocrala.tools.texttablefmt.BorderStyle;
 import org.nocrala.tools.texttablefmt.CellStyle;
