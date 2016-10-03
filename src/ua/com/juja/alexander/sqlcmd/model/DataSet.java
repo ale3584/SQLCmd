@@ -25,7 +25,7 @@ public class DataSet {
         }
     }
 
-    public Data[] data = new Data[100]; // TODO remove magic number 100
+    public Data[] data = new Data[100];
     public int freeIndex = 0;
 
     public void put(String name, Object value) {

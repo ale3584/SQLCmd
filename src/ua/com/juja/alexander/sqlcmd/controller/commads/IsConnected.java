@@ -33,6 +33,6 @@ public class IsConnected extends Command {
 
     @Override
     public void process(InputUtils userCommand) {
-        view.write("Вы не подключены к базе данных, пожалуйста подключитесь.");
+        view.write("Вы не можете использовать команду "+userCommand.toString()+". Введи, пожалуйста имя базы данных, имя пользователя и пароль в формате: connect|database|userName|password");
     }
 }

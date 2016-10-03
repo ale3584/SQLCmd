@@ -11,6 +11,7 @@ import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 
+import static java.util.Collections.replaceAll;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -43,26 +44,26 @@ public class IntegrationTest  {
 
         // then
 
-        String text = "Привет юзер!\r\n" +
-                "Введи, пожалуйста имя базы данных, имя пользователя и пароль в формате: connect|database|userName|password\r\n" +
-                "Существующие команды:\r\n" +
-                "\t\tconnect|database|userName|password -- подключение к базе данных\r\n" +
-                "\t\thelp -- список существующих команд\r\n" +
-                "\t\texit -- Завершает работу с программой.\r\n" +
-                "\t\tfind|tableName -- поиск данных в таблице\r\n" +
-                "\t\tclear|tableName -- очистка таблицы\r\n" +
-                "\t\tdatabases -- Выводит список баз данных.\r\n" +
-                "\t\tcreateDatabase|databaseName -- Создает новую базу данных.\r\n" +
-                "\t\tdropdatabase|databasename -- Удаляет базу данных.\r\n" +
-                "\t\ttables -- Выводит список таблиц базы данных.\r\n" +
+        String text = "Привет юзер!\n" +
+                "Введи, пожалуйста имя базы данных, имя пользователя и пароль в формате: connect|database|userName|password\n" +
+                "Существующие команды:\n" +
+                "\t\tconnect|database|userName|password -- подключение к базе данных\n" +
+                "\t\thelp -- список существующих команд\n" +
+                "\t\texit -- Завершает работу с программой.\n" +
+                "\t\tfind|tableName -- поиск данных в таблице\n" +
+                "\t\tclear|tableName -- очистка таблицы\n" +
+                "\t\tdatabases -- Выводит список баз данных.\n" +
+                "\t\tcreateDatabase|databaseName -- Создает новую базу данных.\n" +
+                "\t\tdropdatabase|databasename -- Удаляет базу данных.\n" +
+                "\t\ttables -- Выводит список таблиц базы данных.\n" +
                 "\t\tcreateTable|tableName(column1,column2,...,columnN) -- Создает таблицу в базе данных, в скобках необходимо ввести описание полей в формате SQL\n" +
-                "Пример: user(id SERIAL NOT NULL PRIMARY KEY,username varchar(225) NOT NULL UNIQUE,password varchar(225))\r\n" +
-                "\t\tdroptable|tablename -- Удаляет таблицу базы данных.\r\n" +
-                "\t\tcreateEntry|tableName|column1|value1|column2|value2|...|columnN|valueN -- Создает запись в таблице.\r\n" +
-                "\t\tupdate|tableName|ID -- Обновляет запись в таблице, используя ID\r\n" +
-                "\t\tdisconnect -- Отключение от текущей базы данных.\r\n" +
-                "Введи команду (или help для помощи):\r\n" +
-                "Всего доброго!\r\n";
+                "Пример: user(id SERIAL NOT NULL PRIMARY KEY,username varchar(225) NOT NULL UNIQUE,password varchar(225))\n" +
+                "\t\tdroptable|tablename -- Удаляет таблицу базы данных.\n" +
+                "\t\tcreateEntry|tableName|column1|value1|column2|value2|...|columnN|valueN -- Создает запись в таблице.\n" +
+                "\t\tupdate|tableName|ID -- Обновляет запись в таблице, используя ID\n" +
+                "\t\tdisconnect -- Отключение от текущей базы данных.\n" +
+                "Введи команду (или help для помощи):\n" +
+                "Всего доброго!\n";
         assertEquals(text, getData());
     }
 
@@ -70,7 +71,7 @@ public class IntegrationTest  {
         try {
             String result = new String(out.toByteArray(), "UTF-8");
             out.reset();
-            return result;
+            return result.replaceAll("\r\n","\n");
         } catch (UnsupportedEncodingException e) {
             return e.getMessage();
         }
@@ -85,9 +86,9 @@ public class IntegrationTest  {
         Main.main(new String[0]);
 
         // then
-        assertEquals("Привет юзер!\r\n" +
-                "Введи, пожалуйста имя базы данных, имя пользователя и пароль в формате: connect|database|userName|password\r\n" +
-                "Всего доброго!\r\n", getData());
+        assertEquals("Привет юзер!\n" +
+                "Введи, пожалуйста имя базы данных, имя пользователя и пароль в формате: connect|database|userName|password\n" +
+                "Всего доброго!\n", getData());
     }
 
     @Test
@@ -100,11 +101,79 @@ public class IntegrationTest  {
         Main.main(new String[0]);
 
         // then
-        assertEquals("Привет юзер!\r\n" +
-                "Введи, пожалуйста имя базы данных, имя пользователя и пароль в формате: connect|database|userName|password\r\n" +
-                "Вы не подключены к базе данных, пожалуйста подключитесь.\r\n" +
-                "Введи команду (или help для помощи):\r\n" +
-                "Всего доброго!\r\n", getData());
+        String text = "Привет юзер!\n" +
+                "Введи, пожалуйста имя базы данных, имя пользователя и пароль в формате: connect|database|userName|password\n" +
+                "Вы не можете использовать команду unsupported. Введи, пожалуйста имя базы данных, имя пользователя и пароль в формате: connect|database|userName|password\n" +
+                "Введи команду (или help для помощи):\n" +
+                "Всего доброго!\n";
+        assertEquals(text, getData());
     }
+
+    @Test
+    public void testListWithOutConnect() throws SQLException, ClassNotFoundException {
+        // given
+        in.add("tables");
+        in.add("exit");
+
+        // when
+        Main.main(new String[0]);
+
+        // then
+        String text = "Привет юзер!\n" +
+                "Введи, пожалуйста имя базы данных, имя пользователя и пароль в формате: connect|database|userName|password\n" +
+                "Вы не можете использовать команду tables. Введи, пожалуйста имя базы данных, имя пользователя и пароль в формате: connect|database|userName|password\n" +
+                "Введи команду (или help для помощи):\n" +
+                "Всего доброго!\n";
+        assertEquals(text, getData());
+    }
+
+    @Test
+    public void testListWithConnect() throws SQLException, ClassNotFoundException {
+        // given
+        in.add("connect|test|root|162399");
+        in.add("tables");
+        in.add("exit");
+
+        // when
+        Main.main(new String[0]);
+
+        // then
+        String text = "Привет юзер!\n" +
+                "Введи, пожалуйста имя базы данных, имя пользователя и пароль в формате: connect|database|userName|password\n" +
+                "Подключение к базе данных произошло успешно\n" +
+                "Введи команду (или help для помощи):\n" +
+                "+-----------+\n" +
+                "|Имя таблицы|\n" +
+                "+-----------+\n" +
+                "|users      |\n" +
+                "+-----------+\n" +
+                "Введи команду (или help для помощи):\n" +
+                "Всего доброго!\n";
+        assertEquals(text, getData());
+    }
+
+    @Test
+    public void testerror() throws SQLException, ClassNotFoundException {
+        // given
+        in.add("connect|test|root|162399");
+        in.add("find|users");
+        in.add("exit");
+
+        // when
+        Main.main(new String[0]);
+
+        // then
+        String text = "Привет юзер!\n" +
+                "Введи, пожалуйста имя базы данных, имя пользователя и пароль в формате: connect|database|userName|password\n" +
+                "Подключение к базе данных произошло успешно\n" +
+                "Введи команду (или help для помощи):\n" +
+                "+----+--+----+\n" +
+                "|name|id|pass|\n" +
+                "+----+--+----+\n" +
+                "Введи команду (или help для помощи):\n" +
+                "Всего доброго!\n";
+        assertEquals(text, getData());
+    }
+
 
 }

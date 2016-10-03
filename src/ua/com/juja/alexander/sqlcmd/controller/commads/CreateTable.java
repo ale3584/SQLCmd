@@ -19,8 +19,7 @@ public class CreateTable extends Command{
     @Override
     public String description() {
         return "Создает таблицу в базе данных, в скобках необходимо ввести описание полей в формате SQL\n" +
-                "Пример: user(id SERIAL NOT NULL PRIMARY KEY,username varchar(225) NOT NULL UNIQUE," +
-                "password varchar(225))";
+                "Пример: user(id SERIAL NOT NULL PRIMARY KEY,username varchar(225) NOT NULL UNIQUE,password varchar(225))";
     }
 
     @Override
