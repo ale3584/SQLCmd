@@ -32,6 +32,5 @@ public class DropDatabase extends Command {
         String[] parameters = userCommand.getParameters();
         manager.dropDatabase(parameters[1]);
         view.write("База данных '" + parameters[1] + "' успешно  удалена.");
-
     }
 }

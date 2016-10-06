@@ -176,4 +176,31 @@ public class IntegrationTest  {
     }
 
 
+    @Test
+    public void testNewDB() throws SQLException, ClassNotFoundException {
+        // given
+        in.add("connect|test|root|162399");
+        in.add("createdatabase|NewTest");
+        in.add("dropdatabase|NewTest");
+        in.add("exit");
+
+        // when
+        Main.main(new String[0]);
+
+        // then
+        String text = "Привет юзер!\n" +
+                "Введи, пожалуйста имя базы данных, имя пользователя и пароль в формате: connect|database|userName|password\n" +
+                "Подключение к базе данных произошло успешно\n" +
+                "Введи команду (или help для помощи):\n" +
+                "База данных 'NewTest' успешно  создана.\n" +
+                "Введи команду (или help для помощи):\n" +
+                "База данных 'NewTest' успешно  удалена.\n" +
+                "Введи команду (или help для помощи):\n" +
+                "Всего доброго!\n";
+        assertEquals(text, getData());
+    }
+
+
+
+
 }

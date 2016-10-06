@@ -23,7 +23,7 @@ public class CreateDatabase extends Command{
 
     @Override
     public String format() {
-        return "createDatabase|databaseName";
+        return "createdatabase|databaseName";
     }
 
     @Override

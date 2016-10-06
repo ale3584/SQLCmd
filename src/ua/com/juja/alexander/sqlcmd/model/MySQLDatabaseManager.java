@@ -62,7 +62,7 @@ public class MySQLDatabaseManager implements DatabaseManager {
     @Override
     public void createDatabase(String databaseName) {
         try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate("CREATE DATABASE " + databaseName);
+            statement.executeUpdate("CREATE DATABASE IF NOT EXISTS " + databaseName);
         } catch (SQLException e) {
             throw new DatabaseManagerException(ERROR, e);
         }
@@ -71,7 +71,7 @@ public class MySQLDatabaseManager implements DatabaseManager {
     @Override
     public void dropDatabase(String databaseName) {
         try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate("DROP DATABASE IF EXISTS" + databaseName);
+            statement.executeUpdate("DROP DATABASE IF EXISTS " + databaseName);
         } catch (SQLException e) {
             throw new DatabaseManagerException(ERROR, e);
         }
