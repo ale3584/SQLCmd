@@ -9,9 +9,15 @@ import java.util.Map;
  */
 public class MySQLDatabaseManager implements DatabaseManager {
 
+
+
+    private static final PropertiesLoader propertiesLoader = new PropertiesLoader();
+
     private static final String ERROR = "It is impossible because: ";
-    private static final String HOST = "localhost";
-    private static final String PORT = "3306";
+    private static final String HOST = propertiesLoader.getServerName();
+    private static final String PORT = propertiesLoader.getDatabasePort();
+    private static final String DRIVER = propertiesLoader.getDriver();
+    private static final String DATABASE_URL = DRIVER + HOST + ":" + PORT + "/";
 
     private boolean isConnected;
     private String user;
@@ -100,8 +106,7 @@ public class MySQLDatabaseManager implements DatabaseManager {
         }
         try {
             connection = DriverManager.getConnection(
-                    "jdbc:mysql://" + HOST + ":" + PORT + "/" + database, userName,
-                    password);
+                    DATABASE_URL + database, userName, password);
             DataBaseName = database;
             isConnected = true;
         } catch (SQLException e) {
